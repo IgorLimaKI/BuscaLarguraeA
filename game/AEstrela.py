@@ -33,21 +33,21 @@ def funcaoHeuristica(passo, jogo):
     for j, row in enumerate(jogoAtual):
         for i, col in enumerate(row):
             if col == '1':
-                notaTabuleiro = notaTabuleiro + fabs((i - 0) + (j - 0)) * 10
+                notaTabuleiro = notaTabuleiro + fabs((i - 0) + (j - 0))
             if col == '2':
-                notaTabuleiro = notaTabuleiro + fabs((i - 0) + (j - 1)) * 9
+                notaTabuleiro = notaTabuleiro + fabs((i - 0) + (j - 1))
             if col == '3':
-                notaTabuleiro = notaTabuleiro + fabs((i - 0) + (j - 2)) * 8
+                notaTabuleiro = notaTabuleiro + fabs((i - 0) + (j - 2))
             if col == '4':
-                notaTabuleiro = notaTabuleiro + fabs((i - 1) + (j - 0)) * 7
+                notaTabuleiro = notaTabuleiro + fabs((i - 1) + (j - 0))
             if col == '5':
-                notaTabuleiro = notaTabuleiro + fabs((i - 1) + (j - 1)) * 6
+                notaTabuleiro = notaTabuleiro + fabs((i - 1) + (j - 1))
             if col == '6':
-                notaTabuleiro = notaTabuleiro + fabs((i - 1) + (j - 2)) * 5
+                notaTabuleiro = notaTabuleiro + fabs((i - 1) + (j - 2))
             if col == '7':
-                notaTabuleiro = notaTabuleiro + fabs((i - 2) + (j - 0)) * 4
+                notaTabuleiro = notaTabuleiro + fabs((i - 2) + (j - 0))
             if col == '8':
-                notaTabuleiro = notaTabuleiro + fabs((i - 2) + (j - 1)) * 3
+                notaTabuleiro = notaTabuleiro + fabs((i - 2) + (j - 1))
             if col == '*':
                 notaTabuleiro = notaTabuleiro + fabs((i - 2) + (j - 2))
     return notaTabuleiro
@@ -100,6 +100,7 @@ def funcaoHeuristica2(passo, jogo):
                 notaTabuleiro = notaTabuleiro + 1
             if col == '*' and j != 2 or i != 2:
                 notaTabuleiro = notaTabuleiro + 1
+    return notaTabuleiro
 
 
 def buscaAEstrela(jogo):
@@ -117,7 +118,7 @@ def buscaAEstrela(jogo):
             passo = add + k
             if movimentoValido(jogo, passo):
                 numNós = numNós + 1
-                heuristica.append((funcaoHeuristica2(passo, jogo), passo))
+                heuristica.append((funcaoHeuristica(passo, jogo), passo))
         heuristica.sort()
         for heu in heuristica:
             if heu[0] == heuristica[0][0]:

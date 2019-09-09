@@ -39,6 +39,12 @@ def printJogo(jogo):
 
 
 def movimentoValido(jogo, passo):
+    if len(passo) > 1:
+        ultimosPassos = passo[-2:]
+        if (ultimosPassos[0] == 'L' and ultimosPassos[1] == 'R') or (ultimosPassos[0] == 'R' and ultimosPassos[1] == 'L') or (
+                ultimosPassos[0] == 'U' and ultimosPassos[1] == 'D') or (ultimosPassos[0] == 'D' and ultimosPassos[1] == 'U'):
+            return False
+
     i, j = buscaInicio(jogo)
 
     for step in passo:
