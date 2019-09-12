@@ -50,7 +50,7 @@ def funcaoHeuristica(passo, jogo):
                 notaTabuleiro = notaTabuleiro + fabs((i - 2) + (j - 1))
             if col == '*':
                 notaTabuleiro = notaTabuleiro + fabs((i - 2) + (j - 2))
-    return notaTabuleiro
+    return notaTabuleiro, jogoAtual
 
 
 def funcaoHeuristica2(passo, jogo):
@@ -100,18 +100,26 @@ def funcaoHeuristica2(passo, jogo):
                 notaTabuleiro = notaTabuleiro + 1
             if col == '*' and j != 2 or i != 2:
                 notaTabuleiro = notaTabuleiro + 1
-    return notaTabuleiro
+    return notaTabuleiro, jogoAtual
+
+
+def chaveTamanho(e):
+    if e[0] == "":
+        return 0
+    return len(e[1]) + int(e[0])
 
 
 def buscaAEstrela(jogo):
-    nums = queue.Queue()
-    nums.put("")
+    nums = []
+    nums.append(["", ""])
     add = ""
+    tabuleirosExplorados = []
     numNós = 0
     while not fimDeJogo(jogo, add):
         print("Numero de nós verificados: ", numNós)
         print()
-        add = nums.get()
+        nums.sort(reverse=True, key=chaveTamanho)
+        add = nums.pop()[1]
         print(add)
         heuristica = []
         for k in ["L", "R", "U", "D"]:
@@ -121,5 +129,6 @@ def buscaAEstrela(jogo):
                 heuristica.append((funcaoHeuristica(passo, jogo), passo))
         heuristica.sort()
         for heu in heuristica:
-            if heu[0] == heuristica[0][0]:
-                nums.put(heu[1])
+            if heu[0][1] not in tabuleirosExplorados:
+                nums.append([heu[0][0], heu[1]])
+                tabuleirosExplorados.append(heu[0][1])
