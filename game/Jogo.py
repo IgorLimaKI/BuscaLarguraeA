@@ -38,11 +38,46 @@ def printJogo(jogo):
     print("—", "—", "—")
 
 
+def printJogoPassoAPasso(jogo, path):
+    i, j = buscaInicio(jogo)
+
+    jogoAtual = copy.deepcopy(jogo)
+    for step in path:
+        printJogo(jogoAtual)
+        print(" ||")
+        print("\\  /")
+        print(" \\/")
+        if step == "L":
+            aux = jogoAtual[j][i]
+            jogoAtual[j][i] = jogoAtual[j][i - 1]
+            jogoAtual[j][i - 1] = aux
+            i = i - 1
+        if step == "R":
+            aux = jogoAtual[j][i]
+            jogoAtual[j][i] = jogoAtual[j][i + 1]
+            jogoAtual[j][i + 1] = aux
+            i = i + 1
+        if step == "U":
+            aux = jogoAtual[j][i]
+            jogoAtual[j][i] = jogoAtual[j - 1][i]
+            jogoAtual[j - 1][i] = aux
+            j = j - 1
+        if step == "D":
+            aux = jogoAtual[j][i]
+            jogoAtual[j][i] = jogoAtual[j + 1][i]
+            jogoAtual[j + 1][i] = aux
+            j = j + 1
+
+    printJogo(jogoAtual)
+
+
 def movimentoValido(jogo, passo):
     if len(passo) > 1:
         ultimosPassos = passo[-2:]
-        if (ultimosPassos[0] == 'L' and ultimosPassos[1] == 'R') or (ultimosPassos[0] == 'R' and ultimosPassos[1] == 'L') or (
-                ultimosPassos[0] == 'U' and ultimosPassos[1] == 'D') or (ultimosPassos[0] == 'D' and ultimosPassos[1] == 'U'):
+        if (ultimosPassos[0] == 'L' and ultimosPassos[1] == 'R') or (
+                ultimosPassos[0] == 'R' and ultimosPassos[1] == 'L') or (
+                ultimosPassos[0] == 'U' and ultimosPassos[1] == 'D') or (
+                ultimosPassos[0] == 'D' and ultimosPassos[1] == 'U'):
             return False
 
     i, j = buscaInicio(jogo)
@@ -103,8 +138,8 @@ def fimDeJogo(jogo, path):
                                         print("******FIM DE JOGO*******")
                                         print(path)
                                         print(len(path))
-                                        printJogo(jogo)
-                                        printJogo(jogoAtual)
+                                        print("PASSO A PASSO")
+                                        printJogoPassoAPasso(jogo, path)
                                         return True
 
     return False

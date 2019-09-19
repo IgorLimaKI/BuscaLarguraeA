@@ -1,15 +1,26 @@
 from game.BuscaLargura import *
 from game.AEstrela import *
 
-
-dificuldade = 0
+tipoDeJogo = 0
 resposta = 0
-while dificuldade != '1' and dificuldade != '2':
+heuristica = 0
+while tipoDeJogo != '1' and tipoDeJogo != '2':
     print('Escolha o tipo de jogo:')
-    print('1 - Fácil')
-    print('2 - Difícil')
-    dificuldade = input()
+    print('1 - Exemplo')
+    print('2 - Escrever')
+    tipoDeJogo = input()
     print()
+if tipoDeJogo == '1':
+    newJogo = criarJogo()
+else:
+    newJogo = []
+    print('Não será checado se o jogo é válido!')
+    print('Escreva a primeira linha do jogo(exemplo: *, 2, 3):')
+    newJogo.append(input().split(','))
+    print('Escreva a segunda linha do jogo(exemplo: *, 2, 3):')
+    newJogo.append(input().split(','))
+    print('Escreva a terceira linha do jogo(exemplo: *, 2, 3):')
+    newJogo.append(input().split(','))
 
 while resposta != '1' and resposta != '2':
     print('Escolha o método de resolução:')
@@ -18,13 +29,16 @@ while resposta != '1' and resposta != '2':
     resposta = input()
     print()
 
-if dificuldade == '1':
-    newJogo = criarJogo2()
-else:
-    newJogo = criarJogo()
-
 if resposta == '1':
     buscaLargura(newJogo)
 else:
-    buscaAEstrela(newJogo)
-
+    while heuristica != '1' and heuristica != '2':
+        print('Escolha a Heurística:')
+        print('1 - Nº de posições erradas')
+        print('2 - Distancia Manhattan')
+        heuristica = input()
+        print()
+    if heuristica == '1':
+        buscaAEstrela(newJogo, 1)
+    else:
+        buscaAEstrela(newJogo, 2)

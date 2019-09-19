@@ -109,7 +109,7 @@ def chaveTamanho(e):
     return len(e[1]) + int(e[0])
 
 
-def buscaAEstrela(jogo):
+def buscaAEstrela(jogo, funcao):
     nums = []
     nums.append(["", ""])
     add = ""
@@ -126,7 +126,10 @@ def buscaAEstrela(jogo):
             passo = add + k
             if movimentoValido(jogo, passo):
                 numNós = numNós + 1
-                heuristica.append((funcaoHeuristica(passo, jogo), passo))
+                if funcao == 1:
+                    heuristica.append((funcaoHeuristica2(passo, jogo), passo))
+                else:
+                    heuristica.append((funcaoHeuristica(passo, jogo), passo))
         heuristica.sort()
         for heu in heuristica:
             if heu[0][1] not in tabuleirosExplorados:
